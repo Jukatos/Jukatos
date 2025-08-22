@@ -1,39 +1,132 @@
-<!--TODO: Add links to the photos para goods pak u-->
-<main>
-  <section>
-    <h1>
-        CuteSmashOrPass (Animal Edition)
-    </h1>
-    <h2>
-        Cute pictures of extinct animals:
-    </h2>
-    <p>
-      <strong>"Destinisticus"</strong> (Hybrid) 
-    </p>
-    <img src="C:\Users\PC\Pictures\Nuclear\nature.png" alt="Cute picture of dogs">
-    <ul>Characteristics of the species</ul>
-      <li>Fast moving</li>
-      <li>High intelligent species</li>
-      <li>Venomous</li>
-    <ul>Description:</ul>
-    <p>
-      "Destinisticus" is a delicate and unique creature. This type of animal exist in the late 1800s in the outskirt of The Philippines
-        this type of animal is a ferocious wild animal that the people said "it was so dangerous not just because of its intimadating appearance"
-   </p>
-    <P>
-      Here are some of the caught videos of the said animal:
-    </P>
-     <figure>
-        <figcaption>A rare <strong>PIKA</strong> type "Destinisticus" dancing</figcaption>
-        <a href="c:\Users\PC\Downloads\a0503e0e-2ec2-40a3-9b3d-d2538f7c2dd6.mp4"><img src="c:\Users\PC\Pictures\Nuclear\Screenshot 2024-06-12 205810.png"></a>
-     </figure>
-    <p>Click <a href="https://www.facebook.com/gamerkelly7">HERE</a> for more pics of this animal!</p>
-    <P>
-      That concludes the "Destinisticus" species!
-    </P>
-  <fieldset>
-    <legend>So do you like this animal? Smash for yes, Pass for no.</legend>
-    <label><input type="radio" name="SMASH-PASS" id="SMASH"> <strong>SMASH</strong> </label>
-    <label><input type="radio" name="SMASH-PASS" id="PASS"> <STrong>PASS</STrong> </label>
-  </fieldset>
-  </section>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QCU Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .month {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .month h2 {
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        .weekdays,
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .weekdays div {
+            font-weight: bold;
+            background: #eee;
+            padding: 5px 0;
+        }
+
+        .days div {
+            padding: 10px 0;
+            border: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .days div:hover {
+            background: #d0e6ff;
+        }
+
+        .today {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>QCU Yearly Calendar</h1>
+    <div class="calendar" id="calendar"></div>
+
+    <script>
+        const calendar = document.getElementById("calendar");
+        const months = ["January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December"];
+        const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const today = new Date();
+
+        function daysInMonth(year, month) {
+            return new Date(year, month + 1, 0).getDate();
+        }
+
+        function render(year) {
+            calendar.innerHTML = "";
+            for (let m = 0; m < 12; m++) {
+                const monthDiv = document.createElement("div");
+                monthDiv.className = "month";
+                monthDiv.innerHTML = `<h2>${months[m]} ${year}</h2>`;
+
+                // Weekdays
+                const weekdaysRow = document.createElement("div");
+                weekdaysRow.className = "weekdays";
+                weekdays.forEach(d => {
+                    const el = document.createElement("div");
+                    el.textContent = d;
+                    weekdaysRow.appendChild(el);
+                });
+                monthDiv.appendChild(weekdaysRow);
+
+                // Days
+                const daysRow = document.createElement("div");
+                daysRow.className = "days";
+                const firstDay = new Date(year, m, 1).getDay();
+                const totalDays = daysInMonth(year, m);
+
+                // Empty cells before first day
+                for (let i = 0; i < firstDay; i++) {
+                    const empty = document.createElement("div");
+                    daysRow.appendChild(empty);
+                }
+
+                // Actual days
+                for (let d = 1; d <= totalDays; d++) {
+                    const dayEl = document.createElement("div");
+                    dayEl.textContent = d;
+                    if (d === today.getDate() && m === today.getMonth() && year === today.getFullYear()) {
+                        dayEl.classList.add("today");
+                    }
+                    dayEl.addEventListener("click", () => {
+                        alert("You clicked " + months[m] + " " + d + ", " + year);
+                    });
+                    daysRow.appendChild(dayEl);
+                }
+
+                monthDiv.appendChild(daysRow);
+                calendar.appendChild(monthDiv);
+            }
+        }
+
+        render(today.getFullYear());
+    </script>
+</body>
+
+</html>
